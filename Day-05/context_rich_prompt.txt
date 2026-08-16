@@ -1,0 +1,133 @@
+# 90-Day Roadmap: Software Engineering Internship (Target 2027)
+
+**Nancy | 2nd Year B.Tech CSE, ABES Engineering College**
+**Starting point:** Basic C++, Basic Python, GitHub beginner
+**Time available:** 2 hrs/day (~14 hrs/week)
+**Goal:** Build strong DSA + backend + GitHub foundation so that by the time internship applications open (typically 6–9 months before summer intake), tum ready ho.
+
+---
+
+## How the 90 Days Are Split
+
+| Phase | Days | Focus |
+|---|---|---|
+| Phase 1: Foundation | Day 1–30 | DSA basics (arrays, strings, recursion) + Git/GitHub mastery + C++ STL |
+| Phase 2: Build | Day 31–60 | DSA (trees, linked lists, sorting) + backend basics + first real project |
+| Phase 3: Placement Prep | Day 61–90 | DSA (graphs intro, DP intro) + resume + mock interviews + project polish |
+
+Daily split (2 hrs): **1 hr DSA + 1 hr rotating (Git/Backend/Project/Interview prep)**
+
+---
+
+## PHASE 1: FOUNDATION (Day 1–30 / Week 1–4)
+
+### Weekly Goals
+
+| Week | DSA Goal | Other Goal |
+|---|---|---|
+| 1 | Arrays + Strings (15 problems) | Git basics: init, commit, branch, merge, .gitignore |
+| 2 | Recursion + Basic Math (10 problems) | GitHub: PRs, forking, README writing |
+| 3 | C++ STL deep dive (vector, map, set, pair) | Set up GitHub profile properly (bio, pinned repos) |
+| 4 | Time/space complexity + revision + 1 mini contest | Python refresher: file handling, OOP basics |
+
+### Skills to Learn
+- Git & GitHub: commits, branching, merge conflicts, pull requests, writing good commit messages
+- C++ STL: vector, pair, map, unordered_map, set, sorting with comparators
+- Time complexity analysis (Big-O) — you must be able to explain this in interviews
+- Basic Python OOP (classes, objects) — useful for scripting and ML later
+
+### Project: **CLI Task Manager (C++)**
+- Simple command-line to-do app: add/delete/mark tasks, file persistence
+- Push to GitHub with a proper README (screenshots, how to run)
+- Goal: your GitHub should show your *first clean, documented repo*
+
+### Resume Milestone
+- Create resume draft v1 (even if mostly education + skills for now)
+- Add "GitHub" and "LeetCode profile" links (start solving now so profile isn't empty later)
+
+### Interview Prep
+- Just start a **daily solved-problems log** (Notion/Excel) — track topic, difficulty, time taken, mistakes
+- No mock interviews yet — this phase is about building the base
+
+---
+
+## PHASE 2: BUILD (Day 31–60 / Week 5–8)
+
+### Weekly Goals
+
+| Week | DSA Goal | Other Goal |
+|---|---|---|
+| 5 | Linked Lists (singly, doubly, reversal, cycle detection) | Learn HTML/CSS basics + intro to REST APIs |
+| 6 | Sorting algorithms + searching (binary search variants) | Build backend basics: Node.js/Express OR Python/Flask (pick one) |
+| 7 | Stacks & Queues (+ 10 problems) | Connect backend to a database (SQLite/MongoDB basics) |
+| 8 | Trees (BST, traversals, height, LCA) | Build and deploy a small CRUD API |
+
+### Skills to Learn
+- Choose **one backend stack** and go deep: recommend **Node.js + Express** (huge internship demand) or Python + Flask if you want to stay closer to your Python/ML interest
+- REST API concepts: GET/POST/PUT/DELETE, status codes, JSON
+- Basic database: SQL fundamentals (SELECT, JOIN, WHERE) — even if using MongoDB, SQL logic helps interviews
+- Postman for API testing
+
+### Project: **Full CRUD Web App**
+Example: "Student Notes API" or "Personal Expense Tracker"
+- Backend: Express/Flask + database
+- Basic frontend (even simple HTML forms are fine — this isn't a frontend-focused roadmap)
+- Deploy it (Render/Railway free tier) so you have a live link for resume
+- Push clean code to GitHub with README + API documentation
+
+### Resume Milestone
+- Add this CRUD project with bullet points (tech stack, what it does, live link, GitHub link)
+- Update LeetCode/GitHub stats on resume
+- Get resume reviewed by a senior/mentor or on r/EngineeringResumes
+
+### Interview Prep
+- Start **1 timed problem per week** (30 min limit) to build speed
+- Learn to explain your CRUD project in 2 minutes — practice out loud
+
+---
+
+## PHASE 3: PLACEMENT PREP (Day 61–90 / Week 9–13)
+
+### Weekly Goals
+
+| Week | DSA Goal | Other Goal |
+|---|---|---|
+| 9 | Graphs intro (BFS, DFS, basic problems) | Mock interview #1 (DSA, with a friend/senior) |
+| 10 | Dynamic Programming intro (Fibonacci-style, knapsack basics) | Behavioral question prep (Tell me about yourself, projects) |
+| 11 | Revision: mixed problems from all topics (timed) | Resume v2 — polish based on feedback |
+| 12 | Contest practice (LeetCode weekly/Codeforces) | Mock interview #2 (full round: DSA + project) |
+| 13 | Final revision + weak-topic focus | Apply prep: shortlist companies, tailor resume per role |
+
+### Skills to Learn
+- Graph traversal (BFS/DFS) — foundation for most graph problems
+- Basic DP patterns (this is enough for now — deep DP comes later in your longer roadmap)
+- How to talk about your projects in STAR format (Situation, Task, Action, Result)
+
+### Project: **Polish, Don't Start New**
+- Go back to your CRUD app or CLI tool and add ONE meaningful feature (auth, better error handling, tests)
+- This shows depth over breadth — recruiters value finished, thoughtful projects over 5 half-done ones
+
+### Resume Milestone
+- Final resume v2: 1 page, 2 solid projects, DSA practice count (e.g., "150+ problems solved on LeetCode"), GitHub link, skills section clean and role-relevant
+- LinkedIn profile updated to match resume
+
+### Interview Prep
+- 2 full mock interviews (DSA + behavioral) — record yourself if possible, review filler words/clarity
+- Prepare 3–4 stories about your projects/hackathons (you already have HACKOCEAN and SIH — use these!)
+- Research common interview formats at target companies (OA pattern, rounds)
+
+---
+
+## Quick Reference: What You'll Have After 90 Days
+
+- ✅ ~120–150 DSA problems solved (arrays, strings, linked lists, trees, basic graphs/DP)
+- ✅ Comfortable with Git/GitHub workflow
+- ✅ One backend stack learned (Node.js or Flask) with a deployed CRUD project
+- ✅ 2 solid, documented GitHub projects
+- ✅ Resume ready for internship applications
+- ✅ 2+ mock interviews done, comfortable talking about projects
+
+## Notes
+- 2 hrs/day is tight — protect this time daily, consistency > intensity. Missing 1 day is fine; missing a week isn't.
+- Tumhara HACKOCEAN aur JalRakshak experience already resume mein strong hai — is roadmap ka focus fundamentals pakka karna hai jo interviews mein test hote hain.
+- After day 90, next focus should be: deeper DP, graphs (Dijkstra, Union-Find), and system design basics — but that's for the next phase.

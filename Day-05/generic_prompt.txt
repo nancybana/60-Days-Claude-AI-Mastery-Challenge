@@ -1,0 +1,49 @@
+Prompt:
+Create a study plan for programming.
+
+Output:
+
+## Weekly Structure (Overview)
+
+| Din | Focus | Time |
+|---|---|---|
+| Mon–Fri | DSA (core) | 1.5–2 hrs |
+| Mon, Wed, Fri | Backend/DB topic | 1 hr |
+| Tue, Thu | ML learning | 1 hr |
+| Sat | Project work (JalRakshak ML layer / GitHub polish) | 3–4 hrs |
+| Sun | Revision + mock contest/interview Qs | 2 hrs |
+
+## Daily DSA Routine (Mon–Fri)
+1. **20 min** — Concept revision (jis topic pe ho: trees, graphs, DP)
+2. **60–75 min** — 2 problems solve karo (1 medium + 1 hard, ya 2 medium)
+3. **15 min** — Solution ko optimize karo + notes banao (pattern recognize karna important hai)
+
+**Topic-wise breakdown (rotate every 2 weeks):**
+- Weeks 1–2: Trees (BST, traversals, LCA, diameter)
+- Weeks 3–4: Graphs (BFS/DFS, Dijkstra, Union-Find, topological sort)
+- Weeks 5–6: DP (knapsack, LIS, string DP, DP on trees)
+- Weeks 7–8: Mixed revision + timed contests (Codeforces/LeetCode weekly)
+
+Platform: LeetCode (interview-focused) + Codeforces (contest rating ke liye, agar competitive programming mein interest hai).
+
+## Backend/DB (Mon, Wed, Fri — 1 hr)
+- Week 1–2: REST API basics (Node.js/Express ya Django — jo bhi comfortable ho)
+- Week 3–4: Databases — SQL queries, joins, indexing; MongoDB basics
+- Week 5–6: Authentication (JWT), middleware, error handling
+- Week 7–8: Build a small end-to-end CRUD app (isse GitHub pe daal sakti ho)
+
+## ML (Tue, Thu — 1 hr)
+- Python + NumPy/Pandas revision (agar zaroorat ho)
+- Supervised learning basics (regression, classification) → scikit-learn
+- Isko directly JalRakshak ke predictive layer mein apply karna — jo tumhe pehle suggest kiya gaya tha
+
+## Saturday — Project Day
+- JalRakshak mein ML prediction layer add karo (ye tumhara existing project hai, isko extend karna zyada value dega naye project se better)
+- GitHub profile polish: README, pinned repos, clean commit history
+
+## Sunday — Revision + Mock
+- Week ka DSA revise karo
+- 1 mock interview set (5–6 questions, mixed topics)
+- Agla week plan karo based on progress
+
+---
