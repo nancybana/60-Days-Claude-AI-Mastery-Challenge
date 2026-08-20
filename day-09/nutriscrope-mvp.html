@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NutriScope — AI Nutrition Analytics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F7F5;
+    --bg-soft:#EAF0EC;
+    --surface:#FFFFFF;
+    --ink:#14231D;
+    --ink-soft:#5B6D64;
+    --ink-faint:#8B9A92;
+    --line:#DCE6DF;
+
+    --primary:#1F6F54;
+    --primary-dark:#154F3C;
+    --primary-tint:#E4F1EA;
+
+    --calories:#D89B2E;
+    --calories-tint:#FBF1DD;
+    --protein:#1F6F54;
+    --protein-tint:#E4F1EA;
+    --carbs:#3E71A6;
+    --carbs-tint:#E6EEF6;
+    --fats:#B5503F;
+    --fats-tint:#F6E9E6;
+
+    --danger:#C0392B;
+
+    --font-display:'Space Grotesk', 'Segoe UI', sans-serif;
+    --font-body:'Inter', 'Segoe UI', sans-serif;
+    --font-mono:'JetBrains Mono', 'Courier New', monospace;
+
+    --radius-lg:18px;
+    --radius-md:12px;
+    --radius-sm:8px;
+    --shadow-card: 0 1px 2px rgba(20,35,29,0.04), 0 8px 24px -12px rgba(20,35,29,0.10);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 24px 64px;
+  }
+
+  /* ---------- Header ---------- */
+  header.site{
+    padding:28px 0 22px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:32px;
+  }
+  .header-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .brand-mark{
+    width:46px;height:46px;
+    border-radius:13px;
+    background:var(--ink);
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    gap:4px;
+    padding:9px 10px 8px;
+    flex-shrink:0;
+  }
+  .brand-mark span{
+    display:block;
+    width:6px;
+    border-radius:2px;
+  }
+  .brand-mark span:nth-child(1){height:12px;background:var(--calories);}
+  .brand-mark span:nth-child(2){height:20px;background:var(--protein-light,#4CAE86);}
+  .brand-mark span:nth-child(3){height:16px;background:var(--carbs);}
+
+  .brand-text h1{
+    font-family:var(--font-display);
+    font-size:22px;
+    font-weight:700;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .brand-text p{
+    margin:2px 0 0;
+    font-size:13.5px;
+    color:var(--ink-soft);
+  }
+
+  .date-badge{
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    color:var(--ink-soft);
+    background:var(--surface);
+    border:1px solid var(--line);
+    padding:8px 14px;
+    border-radius:999px;
+  }
+
+  /* ---------- Layout ---------- */
+  .layout{
+    display:grid;
+    grid-template-columns:360px 1fr;
+    gap:24px;
+    align-items:start;
+  }
+
+  @media (max-width: 900px){
+    .layout{grid-template-columns:1fr;}
+  }
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-card);
+  }
+
+  /* ---------- Form card ---------- */
+  .form-card{
+    padding:24px;
+    position:sticky;
+    top:24px;
+  }
+  @media (max-width: 900px){
+    .form-card{position:static;}
+  }
+
+  .card-eyebrow{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--primary);
+    margin:0 0 6px;
+  }
+  .form-card h2{
+    font-family:var(--font-display);
+    font-size:19px;
+    margin:0 0 20px;
+  }
+
+  .field{
+    margin-bottom:16px;
+  }
+  .field label{
+    display:block;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--ink-soft);
+    margin-bottom:6px;
+  }
+  .field input{
+    width:100%;
+    padding:11px 13px;
+    border-radius:var(--radius-sm);
+    border:1.5px solid var(--line);
+    background:var(--bg-soft);
+    font-family:var(--font-body);
+    font-size:14.5px;
+    color:var(--ink);
+    transition:border-color .15s ease, background .15s ease, box-shadow .15s ease;
+  }
+  .field input::placeholder{color:var(--ink-faint);}
+  .field input:focus{
+    outline:none;
+    border-color:var(--primary);
+    background:var(--surface);
+    box-shadow:0 0 0 3px var(--primary-tint);
+  }
+  .field input.error{
+    border-color:var(--danger);
+    animation:shake .32s ease;
+  }
+  @keyframes shake{
+    0%,100%{transform:translateX(0);}
+    25%{transform:translateX(-4px);}
+    75%{transform:translateX(4px);}
+  }
+
+  .field-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+
+  .btn-add{
+    width:100%;
+    margin-top:6px;
+    padding:13px 16px;
+    border:none;
+    border-radius:var(--radius-sm);
+    background:var(--primary);
+    color:#fff;
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:14.5px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition:background .15s ease, transform .1s ease;
+  }
+  .btn-add:hover{background:var(--primary-dark);}
+  .btn-add:active{transform:translateY(1px);}
+
+  .form-hint{
+    font-size:12px;
+    color:var(--ink-faint);
+    margin-top:12px;
+    text-align:center;
+  }
+
+  /* ---------- Right column ---------- */
+  .right-col{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .stat-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:16px;
+  }
+  @media (max-width:760px){
+    .stat-grid{grid-template-columns:repeat(2,1fr);}
+  }
+
+  .stat-card{
+    padding:18px 18px 16px;
+    border-top:3px solid var(--accent, var(--primary));
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    animation:riseIn .35s ease both;
+  }
+  .stat-card .stat-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .stat-icon{
+    width:30px;height:30px;
+    border-radius:9px;
+    background:var(--accent-tint, var(--primary-tint));
+    display:flex;align-items:center;justify-content:center;
+    color:var(--accent, var(--primary));
+  }
+  .stat-label{
+    font-size:12px;
+    font-weight:600;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+  }
+  .stat-value{
+    font-family:var(--font-mono);
+    font-size:26px;
+    font-weight:700;
+    color:var(--ink);
+    line-height:1;
+  }
+  .stat-value small{
+    font-size:13px;
+    font-weight:600;
+    color:var(--ink-faint);
+    margin-left:3px;
+  }
+
+  .stat-card.calories{--accent:var(--calories);--accent-tint:var(--calories-tint);}
+  .stat-card.protein{--accent:var(--protein);--accent-tint:var(--protein-tint);}
+  .stat-card.carbs{--accent:var(--carbs);--accent-tint:var(--carbs-tint);}
+  .stat-card.fats{--accent:var(--fats);--accent-tint:var(--fats-tint);}
+
+  /* ---------- Macro balance card ---------- */
+  .balance-card{
+    padding:20px 22px 22px;
+  }
+  .balance-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .balance-head h3{
+    font-family:var(--font-display);
+    font-size:16px;
+    margin:0;
+  }
+  .balance-head span{
+    font-size:12px;
+    color:var(--ink-faint);
+    font-family:var(--font-mono);
+  }
+  .balance-bar{
+    width:100%;
+    height:14px;
+    border-radius:999px;
+    overflow:hidden;
+    display:flex;
+    background:var(--bg-soft);
+    border:1px solid var(--line);
+  }
+  .balance-bar .seg{
+    height:100%;
+    transition:width .5s ease;
+  }
+  .seg.protein-seg{background:var(--protein);}
+  .seg.carbs-seg{background:var(--carbs);}
+  .seg.fats-seg{background:var(--fats);}
+
+  .balance-legend{
+    display:flex;
+    gap:22px;
+    margin-top:14px;
+    flex-wrap:wrap;
+  }
+  .legend-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .legend-dot{
+    width:9px;height:9px;
+    border-radius:50%;
+    flex-shrink:0;
+  }
+  .legend-dot.protein-dot{background:var(--protein);}
+  .legend-dot.carbs-dot{background:var(--carbs);}
+  .legend-dot.fats-dot{background:var(--fats);}
+  .legend-item b{
+    font-family:var(--font-mono);
+    color:var(--ink);
+  }
+
+  /* ---------- Log card / table ---------- */
+  .log-card{
+    padding:20px 0 8px;
+    overflow:hidden;
+  }
+  .log-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 22px 16px;
+  }
+  .log-head h3{
+    font-family:var(--font-display);
+    font-size:16px;
+    margin:0;
+  }
+  .log-count{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--ink-faint);
+    background:var(--bg-soft);
+    padding:4px 10px;
+    border-radius:999px;
+  }
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+  }
+  thead th{
+    text-align:left;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--ink-faint);
+    font-weight:600;
+    padding:10px 22px;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  thead th.num, tbody td.num{text-align:right;}
+
+  tbody td{
+    padding:14px 22px;
+    font-size:14px;
+    border-bottom:1px solid var(--line);
+  }
+  tbody tr{
+    animation:riseIn .3s ease both;
+  }
+  tbody tr:hover{background:var(--bg-soft);}
+  tbody tr.removing{
+    animation:fadeOut .25s ease forwards;
+  }
+
+  td.food-name{
+    font-weight:600;
+    color:var(--ink);
+  }
+  td.num{
+    font-family:var(--font-mono);
+    color:var(--ink-soft);
+  }
+  td.num.cal-col{color:var(--calories);font-weight:600;}
+  td.num.pro-col{color:var(--protein);}
+  td.num.carb-col{color:var(--carbs);}
+  td.num.fat-col{color:var(--fats);}
+
+  .remove-btn{
+    width:28px;height:28px;
+    border-radius:8px;
+    border:1px solid var(--line);
+    background:var(--surface);
+    color:var(--ink-faint);
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all .15s ease;
+  }
+  .remove-btn:hover{
+    background:var(--fats-tint);
+    border-color:var(--fats);
+    color:var(--fats);
+  }
+
+  .empty-state{
+    padding:44px 22px 40px;
+    text-align:center;
+    color:var(--ink-faint);
+  }
+  .empty-state svg{margin-bottom:10px;opacity:0.6;}
+  .empty-state p{margin:0;font-size:14px;}
+  .empty-state p.small{font-size:12.5px;margin-top:4px;}
+
+  /* mobile table -> stacked cards */
+  @media (max-width:640px){
+    thead{display:none;}
+    table, tbody, tr, td{display:block;width:100%;}
+    tbody tr{
+      padding:14px 22px;
+      border-bottom:1px solid var(--line);
+    }
+    tbody td{
+      border:none;
+      padding:3px 0;
+      display:flex;
+      justify-content:space-between;
+    }
+    tbody td.num{text-align:right;}
+    tbody td::before{
+      content:attr(data-label);
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:0.04em;
+      color:var(--ink-faint);
+      font-weight:600;
+    }
+    td.food-name{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    td.food-name::before{content:none;}
+  }
+
+  @keyframes riseIn{
+    from{opacity:0; transform:translateY(6px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  @keyframes fadeOut{
+    to{opacity:0; transform:translateX(8px); height:0; padding:0;}
+  }
+
+  footer.site{
+    text-align:center;
+    color:var(--ink-faint);
+    font-size:12.5px;
+    margin-top:40px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="site">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-mark"><span></span><span></span><span></span></div>
+        <div class="brand-text">
+          <h1>NutriScope</h1>
+          <p>Understand your nutrition. Improve your health.</p>
+        </div>
+      </div>
+      <div class="date-badge" id="dateBadge"></div>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <!-- FORM -->
+    <section class="card form-card">
+      <p class="card-eyebrow">Log an item</p>
+      <h2>Add Food Entry</h2>
+
+      <form id="foodForm" novalidate>
+        <div class="field">
+          <label for="foodName">Food name</label>
+          <input type="text" id="foodName" placeholder="e.g. Grilled chicken breast" autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="calories">Calories (kcal)</label>
+          <input type="number" id="calories" placeholder="0" min="0" step="1">
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="protein">Protein (g)</label>
+            <input type="number" id="protein" placeholder="0" min="0" step="0.1">
+          </div>
+          <div class="field">
+            <label for="carbs">Carbs (g)</label>
+            <input type="number" id="carbs" placeholder="0" min="0" step="0.1">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="fats">Fats (g)</label>
+          <input type="number" id="fats" placeholder="0" min="0" step="0.1">
+        </div>
+
+        <button type="submit" class="btn-add">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3V13M3 8H13" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+          Add Food
+        </button>
+        <p class="form-hint">Entries are calculated instantly — nothing is saved after you close this page.</p>
+      </form>
+    </section>
+
+    <!-- RIGHT COLUMN -->
+    <div class="right-col">
+
+      <!-- STATS -->
+      <div class="stat-grid">
+        <div class="stat-card calories">
+          <div class="stat-top">
+            <span class="stat-label">Calories</span>
+            <span class="stat-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg></span>
+          </div>
+          <div class="stat-value"><span id="totalCalories">0</span><small>kcal</small></div>
+        </div>
+
+        <div class="stat-card protein">
+          <div class="stat-top">
+            <span class="stat-label">Protein</span>
+            <span class="stat-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2.5" y="9" width="2.6" height="4.5" rx="0.6" fill="currentColor"/><rect x="6.7" y="5.5" width="2.6" height="8" rx="0.6" fill="currentColor"/><rect x="10.9" y="2.5" width="2.6" height="11" rx="0.6" fill="currentColor"/></svg></span>
+          </div>
+          <div class="stat-value"><span id="totalProtein">0</span><small>g</small></div>
+        </div>
+
+        <div class="stat-card carbs">
+          <div class="stat-top">
+            <span class="stat-label">Carbs</span>
+            <span class="stat-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 11C3.5 8 4.5 8 6 11S8.5 8 10 11S12.5 8 14 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/></svg></span>
+          </div>
+          <div class="stat-value"><span id="totalCarbs">0</span><small>g</small></div>
+        </div>
+
+        <div class="stat-card fats">
+          <div class="stat-top">
+            <span class="stat-label">Fats</span>
+            <span class="stat-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2.5C8 2.5 3.5 8 3.5 10.8C3.5 13.1 5.5 14 8 14C10.5 14 12.5 13.1 12.5 10.8C12.5 8 8 2.5 8 2.5Z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></span>
+          </div>
+          <div class="stat-value"><span id="totalFats">0</span><small>g</small></div>
+        </div>
+      </div>
+
+      <!-- MACRO BALANCE -->
+      <section class="card balance-card">
+        <div class="balance-head">
+          <h3>Daily Macro Balance</h3>
+          <span id="balanceMeta">by grams</span>
+        </div>
+        <div class="balance-bar">
+          <div class="seg protein-seg" id="segProtein" style="width:33.3%"></div>
+          <div class="seg carbs-seg" id="segCarbs" style="width:33.3%"></div>
+          <div class="seg fats-seg" id="segFats" style="width:33.4%"></div>
+        </div>
+        <div class="balance-legend">
+          <div class="legend-item"><span class="legend-dot protein-dot"></span>Protein <b id="pctProtein">0%</b></div>
+          <div class="legend-item"><span class="legend-dot carbs-dot"></span>Carbs <b id="pctCarbs">0%</b></div>
+          <div class="legend-item"><span class="legend-dot fats-dot"></span>Fats <b id="pctFats">0%</b></div>
+        </div>
+      </section>
+
+      <!-- LOG TABLE -->
+      <section class="card log-card">
+        <div class="log-head">
+          <h3>Today's Food Log</h3>
+          <span class="log-count" id="entryCount">0 entries</span>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Food</th>
+              <th class="num">Calories</th>
+              <th class="num">Protein</th>
+              <th class="num">Carbs</th>
+              <th class="num">Fats</th>
+              <th class="num"></th>
+            </tr>
+          </thead>
+          <tbody id="foodTableBody"></tbody>
+        </table>
+
+        <div class="empty-state" id="emptyState">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><circle cx="17" cy="17" r="13" stroke="#B9C6BE" stroke-width="1.8"/><path d="M12 17.5L15.5 21L22.5 13" stroke="#B9C6BE" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p>No food logged yet.</p>
+          <p class="small">Add your first item using the form to see your daily numbers.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <footer class="site">NutriScope MVP — all calculations happen locally in your browser.</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var foods = [];
+  var idCounter = 1;
+
+  var form = document.getElementById('foodForm');
+  var tbody = document.getElementById('foodTableBody');
+  var emptyState = document.getElementById('emptyState');
+  var entryCount = document.getElementById('entryCount');
+
+  var inputs = {
+    name: document.getElementById('foodName'),
+    calories: document.getElementById('calories'),
+    protein: document.getElementById('protein'),
+    carbs: document.getElementById('carbs'),
+    fats: document.getElementById('fats')
+  };
+
+  // date badge
+  document.getElementById('dateBadge').textContent = new Date().toLocaleDateString(undefined, {
+    weekday:'short', month:'short', day:'numeric'
+  });
+
+  function clearError(el){ el.classList.remove('error'); }
+
+  function validate(){
+    var valid = true;
+
+    if(!inputs.name.value.trim()){
+      inputs.name.classList.add('error');
+      valid = false;
+    } else { clearError(inputs.name); }
+
+    ['calories','protein','carbs','fats'].forEach(function(key){
+      var el = inputs[key];
+      var val = el.value;
+      if(val === '' || isNaN(val) || Number(val) < 0){
+        el.classList.add('error');
+        valid = false;
+      } else {
+        clearError(el);
+      }
+    });
+
+    return valid;
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!validate()) return;
+
+    var entry = {
+      id: idCounter++,
+      name: inputs.name.value.trim(),
+      calories: Number(inputs.calories.value),
+      protein: Number(inputs.protein.value),
+      carbs: Number(inputs.carbs.value),
+      fats: Number(inputs.fats.value)
+    };
+
+    foods.push(entry);
+    render();
+    form.reset();
+    inputs.name.focus();
+  });
+
+  // remove input error state as user types
+  Object.keys(inputs).forEach(function(key){
+    inputs[key].addEventListener('input', function(){ clearError(inputs[key]); });
+  });
+
+  tbody.addEventListener('click', function(e){
+    var btn = e.target.closest('.remove-btn');
+    if(!btn) return;
+    var id = Number(btn.getAttribute('data-id'));
+    var row = btn.closest('tr');
+    row.classList.add('removing');
+    row.addEventListener('animationend', function(){
+      foods = foods.filter(function(f){ return f.id !== id; });
+      render();
+    }, { once:true });
+  });
+
+  function fmt(n){
+    return Math.round(n * 10) / 10 % 1 === 0 ? Math.round(n) : (Math.round(n*10)/10);
+  }
+
+  function render(){
+    // table rows
+    tbody.innerHTML = '';
+    foods.forEach(function(f){
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td class="food-name">' + escapeHtml(f.name) +
+          '<button type="button" class="remove-btn" data-id="' + f.id + '" aria-label="Remove ' + escapeHtml(f.name) + '">' +
+            '<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M3 3L10 10M10 3L3 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>' +
+          '</button>' +
+        '</td>' +
+        '<td class="num cal-col" data-label="Calories">' + fmt(f.calories) + '</td>' +
+        '<td class="num pro-col" data-label="Protein">' + fmt(f.protein) + ' g</td>' +
+        '<td class="num carb-col" data-label="Carbs">' + fmt(f.carbs) + ' g</td>' +
+        '<td class="num fat-col" data-label="Fats">' + fmt(f.fats) + ' g</td>';
+      tbody.appendChild(tr);
+    });
+
+    emptyState.style.display = foods.length ? 'none' : 'block';
+    entryCount.textContent = foods.length + (foods.length === 1 ? ' entry' : ' entries');
+
+    // totals
+    var totals = foods.reduce(function(acc, f){
+      acc.calories += f.calories;
+      acc.protein += f.protein;
+      acc.carbs += f.carbs;
+      acc.fats += f.fats;
+      return acc;
+    }, { calories:0, protein:0, carbs:0, fats:0 });
+
+    document.getElementById('totalCalories').textContent = fmt(totals.calories);
+    document.getElementById('totalProtein').textContent = fmt(totals.protein);
+    document.getElementById('totalCarbs').textContent = fmt(totals.carbs);
+    document.getElementById('totalFats').textContent = fmt(totals.fats);
+
+    // macro balance (by grams)
+    var gramTotal = totals.protein + totals.carbs + totals.fats;
+    var pP = gramTotal ? (totals.protein / gramTotal * 100) : 33.33;
+    var pC = gramTotal ? (totals.carbs / gramTotal * 100) : 33.33;
+    var pF = gramTotal ? (totals.fats / gramTotal * 100) : 33.34;
+
+    document.getElementById('segProtein').style.width = pP + '%';
+    document.getElementById('segCarbs').style.width = pC + '%';
+    document.getElementById('segFats').style.width = pF + '%';
+
+    document.getElementById('pctProtein').textContent = Math.round(pP) + '%';
+    document.getElementById('pctCarbs').textContent = Math.round(pC) + '%';
+    document.getElementById('pctFats').textContent = Math.round(pF) + '%';
+
+    document.getElementById('balanceMeta').textContent = gramTotal ? 'by grams' : 'no data yet';
+  }
+
+  function escapeHtml(str){
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  render();
+})();
+</script>
+
+</body>
+</html>
